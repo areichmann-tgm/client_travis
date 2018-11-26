@@ -14,8 +14,8 @@
           <tbody>
             <tr v-for="post in posts" :key="post.id">
               <td>ID</td>
-              <td>Titel</td>
-              <td>Post</td>
+              <td>Name</td>
+              <td>Bild</td>
               <td class="text-right">
               </td>
             </tr>

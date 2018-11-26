@@ -1,19 +1,14 @@
 from flask import Flask
 from flask_restful import reqparse, abort, Api, Resource
+from sqlalchemy import create_engine
 
 app = Flask(__name__)
 api = Api(app)
 
-schueler = {
-    'abc@efg.hij': {'id':'1','username':"mmatouschek", 'picture':"https://www.xing.com/assets/frontend_minified/img/users/nobody_m.256x256.jpg"},
-    'schueler2':{'id':'2','username':"areichmann", 'email':"abc@efg.hij", 'picture':"https://www.xing.com/assets/frontend_minified/img/users/nobody_m.256x256.jpg"},
-    'schueler3':{'id':'3','username':"oiner", 'email':"abc@efg.hij", 'picture':"https://www.xing.com/assets/frontend_minified/img/users/nobody_m.256x256.jpg"}
-}
 
 
-def abort_if_schueler_doesnt_exist(schueler_id):
-    if schueler_id not in schueler:
-        abort(404, message="Schueler doesn't exist".format(schueler_id))
+
+e = create_engine('sqlite:///MyStudents.db')
 
 parser = reqparse.RequestParser()
 parser.add_argument('task')
@@ -22,38 +17,33 @@ parser.add_argument('task')
 
 class Schueler(Resource):
     def get(self, schueler_id):
-        abort_if_schueler_doesnt_exist(schueler_id)
-        return schueler[schueler_id]
+        conn = e.connect()
+        query = conn.execute("select * from SCHUELER where ID='%s';"%schueler_id)
+        return {'schueler': [i[0] for i in query.cursor.fetchall()]},201
 
     def delete(self, schueler_id):
-        abort_if_schueler_doesnt_exist(schueler_id)
-        del schueler[schueler_id]
-        return '', 204
+        conn = e.connect()
+        query = conn.execute("DELETE from SCHUELER where ID='%s';" % schueler_id)
+        return 204
 
-    def put(self, schueler_id):
-        args = parser.parse_args()
-        task = {'schueler': args['schueler']}
-        schueler[schueler_id] = task
-        return task, 201
+    def put(self, schueler_id, email, username, picture):
+        conn = e.connect()
+        query = conn.execute("INSERT INTO SCHUELER (schueler_id,email,username,picture);")
+        return 201
 
+    def update(self, schueler_id, emailX, usernameX, pictureX):
+        conn = e.connect()
+        query = conn.execute("UPDATE SCHUELER SET email=emailX, username=usernameX, picture=pictureX WHERE ID='%s';")
+        return 201
 
-class SchuelerList(Resource):
-    def get(self):
-        return schueler
-
-    def post(self):
-        args = parser.parse_args()
-        schueler_id = int(max(schueler.keys()).lstrip('schueler')) + 1
-        schueler_id = 'Schueler%i' % schueler_id
-        schueler[schueler_id] = {'task': args['task']}
-        return schueler[schueler_id], 201
 
 ##
 ## Actually setup the Api resource routing here
 ##
-api.add_resource(SchuelerList, '/schuelerlist')
-api.add_resource(Schueler, '/schuelerlist/<schueler_id>')
-
+api.add_resource(Schueler, '/schueler/get<int:schueler_id>')
+api.add_resource(Schueler, '/schueler/delete<int:schueler_id>')
+api.add_resource(Schueler, '/schueler/put<int:schueler_id>')
+api.add_resource(Schueler, '/schueler/get<int:schueler_id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
