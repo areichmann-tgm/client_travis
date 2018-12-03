@@ -5,11 +5,12 @@ from flask import Flask
 
 @pytest.fixture
 def client():
-    main.python.server.rest = True
+    main.python.server.rest.app.testing = True
+    client = main.python.server.rest.app.app.test_client();
     yield client
 
 
 def test_ping(client):
-    res = client().get('/todos/schueler1')
+    res = client().get('/schueler')
     assert res.status_code == 200
 
