@@ -6,7 +6,7 @@
 
 [x] Vue.js initialisieren
 
-[  ] Client mit Vue.js auf Rest-Server verbinden (Auslesen der User?)
+[x] Client mit Vue.js auf Rest-Server verbinden (Auslesen der User?)
 
 [ ] Cypress.io-Test für das Listing der User schreiben
 
