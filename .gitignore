@@ -5,3 +5,5 @@ docs
 testreport.html
 __pycache__
 *egg-info
+.node_modules
+.pytest_cache
