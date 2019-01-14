@@ -52,6 +52,7 @@ class Schueler(Resource):
         try:
             query = conn.execute("INSERT INTO main.schueler VALUES('%s','%s','%s','%s');" % (schueler_id,emailX,usernameX,pictureX))
         except Exception:
+            """"""
             self.update()
 
         return 201
