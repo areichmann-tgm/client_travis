@@ -1,6 +1,7 @@
 import sys
 import threading
 import time
+import json
 
 import requests
 from PyQt5.QtGui import QFont
@@ -11,7 +12,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdi
 class Dialog(QWidget):
     def __init__(self, user, parent):
         super().__init__()
-        self._url = 'http://localhost:5000/'
+        self.url = 'http://localhost:5000/'
 
         self.parent = parent
 
@@ -42,22 +43,50 @@ class Dialog(QWidget):
         layout.addRow(update, delete)
         self.setLayout(layout)
 
+
 class Main(QMainWindow):
     def __init__(self):
         super().__init__()
-        self._url = 'http://localhost:5000/schueler'
+        self.url = 'http://localhost:5000/schueler'
 
         self._width = 600
         self._height = 500
         self.list = None
 
+        self.display_users()
+
         self.init_widgets()
         self.show()
+
+    def display_users(self):
+        self.users = requests.get(self.url).json()
+        print(self.users)
+        if self.list:
+            self.list.clear()
+            self.list.setRowCount(len(self.users))
+            self.list.setHorizontalHeaderLabels(["id", "Name", "Email", "Bild"])
+        else:
+            self.list = QTableWidget(self)
+            self.list.setRowCount(len(self.users))
+            self.list.setColumnCount(4)
+            self.list.setHorizontalHeaderLabels(["id", "Name", "Email", "Bild"])
+            self.list.setFixedSize(self._width, 420)
+            self.list.move(0, 80)
+
+        row = 0
+
+        for x in self.users['schueler']:
+            self.list.setItem(row, 0, QTableWidgetItem(x["id"]))
+            self.list.setItem(row, 1, QTableWidgetItem(x["name"]))
+            self.list.setItem(row, 2, QTableWidgetItem(x["email"]))
+            self.list.setItem(row, 3, QTableWidgetItem(x["bild"]))
+            row = row + 1
+
 
     def init_widgets(self):
         self.setFont(QFont("Sans Serif", 10))
 
-        self.id_label = QLabel("Id", self)
+        self.id_label = QLabel("id", self)
         self.id_label.move(5, 10)
         self.id_label = QLineEdit(self)
         self.id_label.resize(90, 29)
@@ -94,9 +123,6 @@ class Main(QMainWindow):
         cancel = QPushButton("Cancel", self)
         cancel.resize(90, 29)
         cancel.move(505, 40)
-
-
-
 
         self.setFixedSize(self._width, self._height)
         self.setWindowTitle('CRUD Client')
