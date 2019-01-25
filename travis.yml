@@ -41,4 +41,4 @@ jobs:
     script:
     - cd ..
     - cd ..
-    - $(npm bin)/cypress run --spec 'cypress/integration/examples/actions.spec.js,cypress/integration/examples/files.spec.js' 
+    - $(npm bin)/cypress run --spec 'cypress/integration/test_spec.js' 
