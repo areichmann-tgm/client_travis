@@ -11,7 +11,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 
-e = create_engine('sqlite:///MyStudents')
+e = create_engine('sqlite:///MyStudents.db')
 
 parser = reqparse.RequestParser()
 parser.add_argument('schueler_id')
@@ -25,7 +25,7 @@ class SchuelerGetALL(Resource):
 
         conn = e.connect()
 
-        query = conn.execute("SELECT * FROM main.schueler;")
+        query = conn.execute("SELECT * FROM schueler;")
         return {'schueler': [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]},200
 
 class Schueler(Resource):
@@ -33,13 +33,13 @@ class Schueler(Resource):
     def get(self):
         conn = e.connect()
         schueler_id = parser.parse_args().schueler_id
-        query = conn.execute("select * from main.schueler where ID='%s';"%schueler_id)
+        query = conn.execute("select * from schueler where ID='%s';"%schueler_id)
         return {'schueler': [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]},200
 
     def delete(self):
         conn = e.connect()
         schueler_id = parser.parse_args().schueler_id
-        query = conn.execute("DELETE from main.schueler where ID='%s';"%schueler_id)
+        query = conn.execute("DELETE from schueler where ID='%s';"%schueler_id)
         return 201
 
 
@@ -50,7 +50,7 @@ class Schueler(Resource):
         usernameX = parser.parse_args().usernameX
         pictureX = parser.parse_args().pictureX
         try:
-            query = conn.execute("INSERT INTO main.schueler VALUES('%s','%s','%s','%s');" % (schueler_id,emailX,usernameX,pictureX))
+            query = conn.execute("INSERT INTO schueler VALUES('%s','%s','%s','%s');" % (schueler_id,emailX,usernameX,pictureX))
         except Exception:
             """"""
             self.update()

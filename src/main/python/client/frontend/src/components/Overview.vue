@@ -13,12 +13,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="s in schueler" :key="s.ID">
-              <td>{{ s.ID }}</td>
+            <tr v-for="s in schueler" :key="s.id">
+              <td>{{ s.id}}</td>
+              <td>{{ s.name }}</td>
               <td>{{ s.email }}</td>
-              <td>{{ s.username }}</td>
-              <td>{{ s.picture }}</td>
-              <button v-on:click="deleteUser(s.ID)">delete</button>
+              <td>{{ s.bild }}</td>
+              <button v-on:click="deleteUser(s.id)">delete</button>
               <td class="text-right">
               </td>
             </tr>
