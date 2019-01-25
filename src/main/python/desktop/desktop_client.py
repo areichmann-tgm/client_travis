@@ -64,22 +64,21 @@ class Main(QMainWindow):
         if self.list:
             self.list.clear()
             self.list.setRowCount(len(self.users))
-            self.list.setHorizontalHeaderLabels(["id", "Name", "Email", "Bild"])
+            self.list.setHorizontalHeaderLabels(["Name", "Email", "Bild"])
         else:
             self.list = QTableWidget(self)
             self.list.setRowCount(len(self.users))
-            self.list.setColumnCount(4)
-            self.list.setHorizontalHeaderLabels(["id", "Name", "Email", "Bild"])
+            self.list.setColumnCount(3)
+            self.list.setHorizontalHeaderLabels(["Name", "Email", "Bild"])
             self.list.setFixedSize(self._width, 420)
             self.list.move(0, 80)
 
         row = 0
 
         for x in self.users['schueler']:
-            self.list.setItem(row, 0, QTableWidgetItem(x["id"]))
-            self.list.setItem(row, 1, QTableWidgetItem(x["name"]))
-            self.list.setItem(row, 2, QTableWidgetItem(x["email"]))
-            self.list.setItem(row, 3, QTableWidgetItem(x["bild"]))
+            self.list.setItem(row, 0, QTableWidgetItem(x["name"]))
+            self.list.setItem(row, 1, QTableWidgetItem(x["email"]))
+            self.list.setItem(row, 2, QTableWidgetItem(x["bild"]))
             row = row + 1
 
 
