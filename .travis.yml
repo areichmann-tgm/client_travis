@@ -9,7 +9,7 @@ jobs:
     sudo: required
     dist: xenial
     python: 3.6
-    install: pip install tox-travis, PyQt5
+    install: pip install tox-travis
     script: tox
 
   - stage: Cypress Test
