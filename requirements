@@ -5,3 +5,5 @@ flask_cors
 pytest
 pytest-html
 pytest-cov
+sqlite3
+PyQt5
