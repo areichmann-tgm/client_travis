@@ -11,6 +11,15 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 
+
+
+sql_create_projects_table ="""CREATE TABLE IF NOT EXISTS schueler (
+ id integer PRIMARY KEY,
+ name VARCHAR NOT NULL,
+ email VARCHAR,
+ bild VARCHAR
+);"""
+
 e = create_engine('sqlite:///MyStudents.db')
 
 parser = reqparse.RequestParser()
