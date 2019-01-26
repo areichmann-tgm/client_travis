@@ -37,5 +37,12 @@ tox
 ```
 ### Travis
 Bei einem PUSH sollen alle Tests (grafisch und pytest) ausgeführt werden. Dafür wurde die travis.yml geschrieben und das Repo in die Travis.cy eingebunden. 
+
+### Desktop-Client
+Der Desktop Client wurde mit pyqt erstellt. Er kann mit folgendem Befehl ausgeführt werden.
+```
+cd src\main\python\desktop
+python desktop_client.py
+```
 ## Quellen
 https://impythonist.wordpress.com/2015/07/12/build-an-api-under-30-lines-of-code-with-python-and-flask/
