@@ -7,7 +7,7 @@ Die detaillierte [Aufgabenstellung](TASK.md) beschreibt die notwendigen Schritte
 ### REST-APi
 Mit Hilfe von FLASKRESTful wurde ein einfache REST-API erstellt. Dieser kann mit folgendem Befehl ausgeführt werden:
 ```
-cd src\main\python\serve
+cd src\main\python\server
 python rest.py
 ```
 ### Vue
@@ -18,8 +18,23 @@ npm start
 ```
 
 ### Cypress
+Mit Cypress kann die grafische Oberfläche (VUE) getestet werden. Die Tests können mit folgenden Befehl ausgeführt werden.
+```
+$(npm bin)/cypress run --spec 'cypress/integration/test.spec.js' 
+```
 ### PyTest
+Mit Pytest können die definierten Python Tests für die RESt-API ausgeführt werden.
+```
+cd src\main\python\server
+pytest
+```
 ### Tox
+Mit Tox werden die Pytests ausgeführt und ein REPORT erstellt. Die benötigten Requiremnts sind in der requirements Datei beschrieben. 
+Alles was tox tun soll steht in der tox.ini
+Tox kann mit folgendem Befehl im Hauptverzeichnis ausgeführt werden:
+```
+tox
+```
 ### Travis
 
 ## Quellen
