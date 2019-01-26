@@ -5,5 +5,5 @@ flask_cors
 pytest
 pytest-html
 pytest-cov
-PyQt5
+
 
