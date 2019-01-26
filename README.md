@@ -6,7 +6,10 @@ Die detaillierte [Aufgabenstellung](TASK.md) beschreibt die notwendigen Schritte
 ## Implementierung
 ### REST-APi
 Mit Hilfe von FLASKRESTful wurde ein einfache REST-API erstellt. Dieser kann mit folgendem Befehl ausgeführt werden:
-
+```
+cd src\main\python\serve
+python rest.py
+```
 ### Vue
 Es wurde mit VUE ein einfacher Client erstellt. Der mit folgenden Befehlen ausgeführt werden kann:
 ```
