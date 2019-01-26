@@ -2,7 +2,7 @@ import sys
 import threading
 import time
 import json
-
+import PyQt5
 import requests
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit, QMainWindow, \

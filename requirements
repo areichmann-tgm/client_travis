@@ -6,4 +6,6 @@ pytest
 pytest-html
 pytest-cov
 sqlite3
+PyQt5.QtGui
+PyQt5.QtWidgets
 PyQt5
