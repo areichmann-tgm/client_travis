@@ -25,7 +25,7 @@ def test_delete(client):
     assert res.status_code == 200
 
 def test_update(client):
-    res = client.put('/schuelerA',data={'schueler_id':'1000','usernameX':'Adrian','emailX':'adrian@new.at','picture':'-'})
+    res = client.update('/schuelerA',data={'schueler_id':'1000','usernameX':'Adrian','emailX':'adrian@new.at','picture':'-'})
     assert res.status_code == 200
 
 def test_insert(client):
