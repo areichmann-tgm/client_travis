@@ -12,7 +12,7 @@ describe('My First Test', function() {
 
     it('Checking if Buttons clickable', function(){
         cy.visit('http://localhost:8080/')
-        cy.contains('Delete').click()
+        cy.contains('Add').click()
     })
 
 })
