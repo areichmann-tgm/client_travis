@@ -2,9 +2,8 @@ describe('My Test', function() {
    it('Visit Student Page', function() {
         cy.visit('http://localhost:8080/')
     })
-  it('Table Size', function() {
+  it('Table', function() {
         cy.visit('http://localhost:8080/')
-        cy.get('.table table-striped').find('tr').should('have.length',0)
-    })
+        cy.contains('table1')
 
 })
