@@ -5,5 +5,5 @@ describe('My Test', function() {
   it('Table', function() {
         cy.visit('http://localhost:8080/')
         cy.contains('table1')
-
+  })
 })
