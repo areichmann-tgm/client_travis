@@ -24,7 +24,13 @@
             </tr>
           </tbody>
         </table>
-
+<form v-on:submit="createUser">
+      <label> <input type="text" v-model="editForm.sid"/></label>
+      <label> <input type="email" v-model="editForm.email"/></label>
+      <label> <input type="text" v-model="editForm.benutzername"/></label>
+      <label> <input type="text" v-model="editForm.bild"/></label>
+      <button type="submit">Add</button>
+    </form>
   </div>
 </template>
 <script>/* eslint-disable */
@@ -33,19 +39,36 @@
  export default{
   data: function () {
     return {
-      schueler: null
+      schueler: null,
+      editForm: {
+        sid: '',
+        email: '',
+        benutzername: '',
+        bild: ''
+      },
       }
     },
     methods:{
-    getUser: function(){
+    getUser: function(self){
      axios
       .get('http://127.0.0.1:5000/schueler')
       .then(response => (this.schueler = response.data.schueler))
+    },
+    createUser: function() {
+      var sid= this.editForm.sid;
+      var email= this.editForm.email;
+      var benutzername=this.editForm.benutzername;
+      var bild=this.editForm.bild;
+       return axios.put('http://127.0.0.1:5000/schuelerA',{schueler_id : sid, emailX:email, pictureX:bild, usernameX:benutzername});
     },
 
     deleteUser: function (sid) {
       return axios.delete('http://127.0.0.1:5000/schuelerA',{params: {schueler_id : sid}});
     }
-    }
+
+
+
+
+  }
   }
 </script>
