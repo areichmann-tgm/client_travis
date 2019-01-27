@@ -2,7 +2,7 @@
   <div class="container-fluid mt-4">
     <h1 class="h1">Schueler</h1>
 
-        <table class="table table-striped">
+        <table id="table1" class="table table-striped">
           <thead>
             <tr>
               <th>ID</th>
