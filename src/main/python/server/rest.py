@@ -55,7 +55,7 @@ class Schueler(Resource):
 
         schueler_id = parser.parse_args().schueler_id
         query = conn.execute("select * from schueler where ID='%s';"%schueler_id)
-        return {'schueler': [dict(zip(tuple (query.fetchall()) ,i)) for i in query.conn]},200
+        return {'schueler': [dict(zip(tuple (query.fetchall()) ,i)) for i in query]},200
 
     def delete(self):
 
