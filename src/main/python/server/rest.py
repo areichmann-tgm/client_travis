@@ -54,13 +54,13 @@ class Schueler(Resource):
     def get(self):
 
         schueler_id = parser.parse_args().schueler_id
-        query = conn.execute("select * from schueler where ID='%s';"%schueler_id)
+        query = conn.execute("select * from schueler where id='%s';"%schueler_id)
         return {'schueler': [dict(zip(tuple (query.fetchall()) ,i)) for i in query]},200
 
     def delete(self):
 
         schueler_id = parser.parse_args().schueler_id
-        query = conn.execute("DELETE from schueler where ID='%s';"%schueler_id)
+        query = conn.execute("DELETE from schueler where id='%s';"%schueler_id)
         return 201
 
 
@@ -84,7 +84,7 @@ class Schueler(Resource):
         emailX = parser.parse_args().emailX
         usernameX = parser.parse_args().usernameX
         pictureX = parser.parse_args().pictureX
-        query = conn.execute("UPDATE schueler SET email='%s', username='%s', picture='%s' WHERE ID='%s';"%(emailX,usernameX,pictureX,schueler_id))
+        query = conn.execute("UPDATE schueler SET email='%s', name='%s', bild='%s' WHERE id='%s';"%(emailX,usernameX,pictureX,schueler_id))
         return 201
 
 
