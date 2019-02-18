@@ -59,11 +59,11 @@
       var email= this.editForm.email;
       var benutzername=this.editForm.benutzername;
       var bild=this.editForm.bild;
-       return axios.put('http://127.0.0.1:5000/schuelerA',{schueler_id : sid, emailX:email, pictureX:bild, usernameX:benutzername});
+       return axios.put('http://127.0.0.1:5000/schuelerA',{id : sid, email:email, bild:bild, name:benutzername});
     },
 
     deleteUser: function (sid) {
-      return axios.delete('http://127.0.0.1:5000/schuelerA',{params: {schueler_id : sid}});
+      return axios.delete('http://127.0.0.1:5000/schuelerA',{params: {id : sid}});
     }
 
 
