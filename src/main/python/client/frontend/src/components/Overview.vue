@@ -25,9 +25,9 @@
           </tbody>
         </table>
 <form v-on:submit="createUser">
-      <label> <input type="text" v-model="editForm.sid"/></label>
+      <label> <input type="text" v-model="editForm.id"/></label>
       <label> <input type="email" v-model="editForm.email"/></label>
-      <label> <input type="text" v-model="editForm.benutzername"/></label>
+      <label> <input type="text" v-model="editForm.name"/></label>
       <label> <input type="text" v-model="editForm.bild"/></label>
       <button type="submit">Add</button>
     </form>
@@ -41,9 +41,9 @@
     return {
       schueler: null,
       editForm: {
-        sid: '',
+        id: '',
         email: '',
-        benutzername: '',
+        name: '',
         bild: ''
       },
       }
@@ -55,15 +55,15 @@
       .then(response => (this.schueler = response.data.schueler))
     },
     createUser: function() {
-      var sid= this.editForm.sid;
+      var sid= this.editForm.id;
       var email= this.editForm.email;
-      var benutzername=this.editForm.benutzername;
+      var benutzername=this.editForm.name;
       var bild=this.editForm.bild;
-       return axios.put('http://127.0.0.1:5000/schuelerA',{id : sid, email:email, bild:bild, name:benutzername});
+       return axios.put('http://127.0.0.1:5000/schuelerA',{id : id, email:email, name:benutzername,bild:bild});
     },
 
-    deleteUser: function (sid) {
-      return axios.delete('http://127.0.0.1:5000/schuelerA',{params: {id : sid}});
+    deleteUser: function (id) {
+      return axios.delete('http://127.0.0.1:5000/schuelerA',{params: {id : id}});
     }
 
 

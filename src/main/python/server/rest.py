@@ -56,7 +56,13 @@ class SchuelerGetALL(Resource):
         conn = connt.cursor()
 
         query = conn.execute("SELECT * FROM schueler;")
-        return {'schueler': [dict(zip(tuple(query.keys()), i)) for i in query]}, 200
+        users = query.fetchall()
+        userOut = []
+        for i in range(len(users)):
+            user = {"id": users[i][0], "email": users[i][1], "name": users[i][2], "bild": users[i][3]}
+            userOut.append(user)
+        json_with_quotes = json.dumps(userOut)
+        return json.loads(json_with_quotes), 200
 
 class Schueler(Resource):
 
@@ -66,12 +72,15 @@ class Schueler(Resource):
 
         id = parser.parse_args().id
         query = conn.execute("select t.* from schueler t where id='%s';"%id)
-        return {'schueler': [dict(zip(tuple(query.keys()), i)) for i in query]}, 200
+        users = query.fetchall()
+        for i in range(len(users)):
+            user = {"id": users[i][0], "email": users[i][1], "name": users[i][2], "bild": users[i][3]}
+        json_with_quotes = json.dumps(user)
+        return json.loads(json_with_quotes), 200
 
     def delete(self):
         connt = sqlite3.connect(db_path)
         conn = connt.cursor()
-
         id = parser.parse_args().id
         query = conn.execute("DELETE from schueler where id='%s';"%id)
         return 201
