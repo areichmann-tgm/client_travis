@@ -35,7 +35,6 @@
 </template>
 <script>/* eslint-disable */
   import axios from 'axios';
-
  export default{
   data: function () {
     return {
@@ -52,14 +51,14 @@
     getUser: function(self){
      axios
       .get('http://127.0.0.1:5000/schueler')
-      .then(response => (this.schueler = response.data.schueler))
+      .then(response => (this.schueler = response.data.schueler)) .catch(error => console.log(error))
     },
     createUser: function() {
-      var sid= this.editForm.id;
+      var id= this.editForm.id;
       var email= this.editForm.email;
-      var benutzername=this.editForm.name;
+      var name =this.editForm.name;
       var bild=this.editForm.bild;
-       return axios.put('http://127.0.0.1:5000/schuelerA',{id : id, email:email, name:benutzername,bild:bild});
+       return axios.put('http://127.0.0.1:5000/schuelerA',{id :id, email:email, name:name ,bild:bild});
     },
 
     deleteUser: function (id) {

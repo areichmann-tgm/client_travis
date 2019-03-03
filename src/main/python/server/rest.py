@@ -31,8 +31,8 @@ def create():
         pass
 
 def insert():
-    conn.execute("INSERT INTO schueler (id, name, email, bild) values('1000', 'Adrian', 's1@microgreen.com', 'NO_PIC')")
-    conn.execute("INSERT INTO schueler (id, name, email, bild) values('1001', 'Adrian', 's1@microgreen.com', 'NO_PIC')")
+    conn.execute("INSERT INTO schueler (id, name, email, bild) values(1000, 'Adrian', 's1@microgreen.com', 'NO_PIC')")
+    conn.execute("INSERT INTO schueler (id, name, email, bild) values(1001, 'Adrian', 's1@microgreen.com', 'NO_PIC')")
 
 
 db_path = r'MyStudents.db'
@@ -61,8 +61,8 @@ class SchuelerGetALL(Resource):
         for i in range(len(users)):
             user = {"id": users[i][0], "email": users[i][1], "name": users[i][2], "bild": users[i][3]}
             userOut.append(user)
-        json_with_quotes = json.dumps(userOut)
-        return json.loads(json_with_quotes), 200
+        json_with_quotes = json.dumps({'schueler':userOut})
+        return json.loads( json_with_quotes), 200
 
 class Schueler(Resource):
 
@@ -71,25 +71,28 @@ class Schueler(Resource):
         conn = connt.cursor()
 
         id = parser.parse_args().id
-        query = conn.execute("select t.* from schueler t where id='%s';"%id)
+        query = conn.execute("SELECT t.* from schueler t where id='%s';"%id)
         users = query.fetchall()
+        userOut = []
         for i in range(len(users)):
             user = {"id": users[i][0], "email": users[i][1], "name": users[i][2], "bild": users[i][3]}
-        json_with_quotes = json.dumps(user)
+            userOut.append(user)
+        json_with_quotes = json.dumps({'schueler': userOut})
         return json.loads(json_with_quotes), 200
 
     def delete(self):
         connt = sqlite3.connect(db_path)
         conn = connt.cursor()
         id = parser.parse_args().id
-        query = conn.execute("DELETE from schueler where id='%s';"%id)
+        conn.execute("DELETE FROM schueler where id=(?)",(id,))
+        connt.commit()
+        connt.close()
         return 201
 
 
     def put(self):
         connt = sqlite3.connect(db_path)
         conn = connt.cursor()
-
         id = parser.parse_args().id
         email = parser.parse_args().email
         name = parser.parse_args().name
@@ -99,7 +102,8 @@ class Schueler(Resource):
         except Exception:
             """"""
             self.update()
-
+        connt.commit()
+        connt.close()
         return 201
 
     def update(self):
@@ -109,6 +113,8 @@ class Schueler(Resource):
         name = parser.parse_args().name
         bild = parser.parse_args().bild
         query = conn.execute("UPDATE schueler SET email='%s', name='%s', bild='%s' WHERE id='%s';"%(email,name,bild,id))
+        connt.commit()
+        connt.close()
         return 201
 
 
